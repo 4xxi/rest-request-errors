@@ -8,6 +8,7 @@
         "symfony/http-kernel": "*",
         "symfony/form": "*"
     },
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "Fourxxi\\RestRequestError\\": "src/"
