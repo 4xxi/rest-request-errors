@@ -1,0 +1,27 @@
+{
+    "name": "4xxi/rest-request-errors",
+    "description": "Bundle providing serialization of REST request errors",
+    "type": "library",
+    "require": {
+        "symfony/serializer": "*",
+        "symfony/http-foundation": "*",
+        "symfony/http-kernel": "*",
+        "symfony/form": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fourxxi\\RestRequestError\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Artem Vozhzhov",
+            "email": "avozhzhov@4xxi.com"
+        },
+        {
+            "name": "Dmitrii Bezmelnitsyn",
+            "email": "dbezmelnitsyn@4xxi.com"
+        }
+    ]
+}
