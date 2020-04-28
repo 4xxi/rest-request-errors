@@ -1,0 +1,6 @@
+services:
+  Fourxxi\RestRequestError\EventListener\ExceptionResponseListener:
+    arguments:
+      - '@serializer'
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception }

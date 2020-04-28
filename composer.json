@@ -1,17 +1,27 @@
 {
     "name": "4xxi/rest-request-errors",
     "description": "Bundle providing serialization of REST request errors",
-    "type": "library",
+    "type": "symfony-bundle",
     "require": {
-        "symfony/serializer": "*",
-        "symfony/http-foundation": "*",
-        "symfony/http-kernel": "*",
-        "symfony/form": "*"
+        "php": "^7.1.3",
+        "symfony/serializer": "^4.0",
+        "symfony/http-foundation": "^4.0",
+        "symfony/http-kernel": "^4.0",
+        "symfony/dependency-injection": "^4.0",
+        "symfony/config": "^4.0"
+    },
+    "suggest": {
+        "symfony/form": "Enable support for forms"
     },
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "Fourxxi\\RestRequestError\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fourxxi\\RestRequestError\\Tests\\": "tests/"
         }
     },
     "license": "MIT",
@@ -24,5 +34,9 @@
             "name": "Dmitrii Bezmelnitsyn",
             "email": "dbezmelnitsyn@4xxi.com"
         }
-    ]
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.1",
+        "symfony/form": "^4.0"
+    }
 }
