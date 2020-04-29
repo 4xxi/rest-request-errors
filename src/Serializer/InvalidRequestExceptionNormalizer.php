@@ -8,6 +8,8 @@ use Fourxxi\RestRequestError\Exception\InvalidRequestExceptionInterface;
 use Fourxxi\RestRequestError\Factory\View\ErrorViewFactory;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 final class InvalidRequestExceptionNormalizer implements NormalizerInterface
 {
@@ -32,7 +34,9 @@ final class InvalidRequestExceptionNormalizer implements NormalizerInterface
             ? $object->getErrors()
             : $object->getPrevious()->getErrors();
 
-        return $this->errorViewFactory->createFromErrorTree($errorTree);
+        $serializer = new Serializer([new ObjectNormalizer()]);
+
+        return $serializer->normalize($this->errorViewFactory->createFromErrorTree($errorTree), $format, $context);
     }
 
     /**

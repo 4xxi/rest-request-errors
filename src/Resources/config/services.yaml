@@ -3,4 +3,3 @@ services:
   Fourxxi\RestRequestError\Serializer\InvalidRequestExceptionNormalizer:
     arguments:
       - '@Fourxxi\RestRequestError\Factory\View\ErrorViewFactory'
-    tags: ['serializer.normalizer']

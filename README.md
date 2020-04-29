@@ -51,3 +51,61 @@ To enable it, add configuration yaml into `config/packages/rest_request_error.ya
 rest_request_error:
   use_exception_listener: true
   ```
+
+## Decorating normalizer
+If you want to modify errors response payload, you can decorate bundle normalizer with your own
+
+Add to `services.yaml` decorate service
+```yaml
+App\Serializer\CustomExceptionNormalizer:
+    decorates: Fourxxi\RestRequestError\Serializer\InvalidRequestExceptionNormalizer
+    arguments:
+        - '@App\Serializer\CustomExceptionNormalizer.inner'
+```
+
+And create own decorator class:
+```php
+final class CustomExceptionNormalizer implements NormalizerInterface
+{
+    /**
+     * @var NormalizerInterface
+     */
+    private $normalizer;
+
+    public function __construct(NormalizerInterface $normalizer)
+    {
+        $this->normalizer = $normalizer;
+    }
+
+    /**
+     * @param InvalidRequestExceptionInterface $object
+     */
+    public function normalize($object, string $format = null, array $context = [])
+    {
+        $normalized = $this->normalizer->normalize($object, $format, $context);
+        $normalized['code'] = $object->getStatusCode();
+
+        return $normalized;
+    }
+
+    public function supportsNormalization($data, string $format = null)
+    {
+        return $this->normalizer->supportsNormalization($data, $format);
+    }
+}
+```
+Result:
+```json
+{
+  "errors": [],
+  "children": {
+    "test": {
+      "errors": [
+        "foo"
+      ],
+      "children": []
+    }
+  },
+  "code": 400
+}
+```
