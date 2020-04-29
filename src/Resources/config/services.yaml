@@ -1,5 +1,9 @@
 services:
+  objectNormalizer:
+    class: Symfony\Component\Serializer\Normalizer\ObjectNormalizer
+    tags: [serializer.normalizer]
   Fourxxi\RestRequestError\Factory\View\ErrorViewFactory: ~
   Fourxxi\RestRequestError\Serializer\InvalidRequestExceptionNormalizer:
     arguments:
       - '@Fourxxi\RestRequestError\Factory\View\ErrorViewFactory'
+      - '@objectNormalizer'
