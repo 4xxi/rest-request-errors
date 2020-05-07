@@ -6,7 +6,6 @@ namespace Fourxxi\RestRequestError\EventListener;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -31,7 +30,7 @@ final class ExceptionResponseListener
     public function onKernelException(ExceptionEvent $event)
     {
         $exception = $event->getThrowable();
-        if (!$exception instanceof HttpExceptionInterface) {
+        if (!$this->normalizer->supportsNormalization($exception)) {
             return;
         }
 
