@@ -9,6 +9,4 @@ use Fourxxi\RestRequestError\Exception\Model\ErrorTree;
 interface InvalidRequestExceptionInterface
 {
     public function getErrors(): ErrorTree;
-
-    public function getStatusCode();
 }
