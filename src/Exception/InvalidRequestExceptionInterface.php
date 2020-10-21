@@ -6,7 +6,7 @@ namespace Fourxxi\RestRequestError\Exception;
 
 use Fourxxi\RestRequestError\Exception\Model\ErrorTree;
 
-interface InvalidRequestExceptionInterface
+interface InvalidRequestExceptionInterface extends \Throwable
 {
     public function getErrors(): ErrorTree;
 }
