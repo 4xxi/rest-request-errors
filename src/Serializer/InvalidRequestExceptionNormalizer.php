@@ -31,15 +31,13 @@ final class InvalidRequestExceptionNormalizer implements NormalizerInterface
     /**
      * {@inheritdoc}
      *
-     * @param InvalidRequestExceptionInterface|BadRequestHttpException $object
+     * @param InvalidRequestExceptionInterface $object
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        $errorTree = $object instanceof InvalidRequestExceptionInterface
-            ? $object->getErrors()
-            : $object->getPrevious()->getErrors();
+        $errorView = $this->errorViewFactory->createFromErrorTree($object->getErrors());
 
-        return $this->objectNormalizer->normalize($this->errorViewFactory->createFromErrorTree($errorTree), $format, $context);
+        return $this->objectNormalizer->normalize($errorView, $format, $context);
     }
 
     /**
@@ -47,16 +45,6 @@ final class InvalidRequestExceptionNormalizer implements NormalizerInterface
      */
     public function supportsNormalization($data, $format = null)
     {
-        if ($data instanceof InvalidRequestExceptionInterface) {
-            return true;
-        }
-
-        if (!$data instanceof BadRequestHttpException) {
-            return false;
-        }
-
-        $previous = $data->getPrevious();
-
-        return $previous instanceof InvalidRequestExceptionInterface;
+        return $data instanceof InvalidRequestExceptionInterface;
     }
 }
