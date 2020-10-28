@@ -35,9 +35,9 @@ final class InvalidRequestExceptionNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        $errorTree = $this->errorViewFactory->createFromErrorTree($object->getErrors());
+        $errorView = $this->errorViewFactory->createFromErrorTree($object->getErrors());
 
-        return $this->objectNormalizer->normalize($errorTree, $format, $context);
+        return $this->objectNormalizer->normalize($errorView, $format, $context);
     }
 
     /**
